@@ -12,3 +12,5 @@ class Animal:
 example = Animal(name="Bobik", type="dog", age="5")
 print(example)
 example.make_sounds("gav-gav")
+
+
