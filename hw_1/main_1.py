@@ -104,12 +104,14 @@ class PassengerPlane:
         :return:
         '''
         print(f"Самолет взлетел")
+
     def landing(self):
         '''
         Метод посадки самолета
         :return:
         '''
         print(f"Самолет приземлился")
+
     def altitude_change(self):
         '''
         Метод изменения высоты
@@ -117,6 +119,7 @@ class PassengerPlane:
         :return:
         '''
         self.altitude = float(input("Укажите текущую высоту >>"))
+
     def speed_change(self):
         '''
         Метод изменения скорости
@@ -135,6 +138,7 @@ class PassengerPlane:
               f" Вместимость: {self.capacity}\n"
               f" Высота: {self.altitude}\n"
               f" Скорость: {self.speed}")
+
     def load_navigation(self):
         '''
         Метод загрузки навигации
@@ -148,7 +152,7 @@ class Program:
     @staticmethod
     def main():
         example = PassengerPlane(manufacturer="Sukhoi", model="Superjet 100",
-                                 capacity=98, altitude=0, speed=10)
+                                 capacity=98, altitude=0, speed=0)
         while True:
             PassengerPlane.load_navigation(self=None)
             try:
@@ -183,3 +187,89 @@ class Program:
 Program.main()
 
 #4##################################################################
+class MusicAlbum:
+    def __init__(self, artist: str, album: str, genre: str, tracklist: list):
+        '''
+        construct
+        :param artist:
+        :param album:
+        :param genre:
+        :param tracklist:
+        '''
+        self.artist = artist
+        self.album = album
+        self.genre = genre
+        self.tracklist = tracklist
+
+    def album_info(self):
+        print(f"Артист: {self.artist}\n"
+              f"Альбом: {self.album}\n"
+              f"Жанр: {self.genre}\n"
+              f"Треклист: {self.tracklist}")
+
+    def add_track(self, track: str):
+        '''
+        Метод добавления трека в альбом
+        :return:
+        '''
+        self.tracklist.append(track)
+        print(f"'{track}' добавлена в альбом '{self.album}'")
+
+    def delete_track(self, track):
+        '''
+        Метод удаления трека из альбома
+        :param track:
+        :return:
+        '''
+        if track in self.tracklist:
+            self.tracklist.remove(track)
+            print(f"Песня '{track}' удалена из альбома '{self.album}'")
+        else:
+            print(f"Песни '{track}' нет в альбоме '{self.album}'")
+
+    def play_track(self, track):
+        '''
+        Метод воспроизведения трека
+        :param track:
+        :return:
+        '''
+
+        if track in self.tracklist:
+            print(f"Сейчас воспроизводится '{track}' из альбома '{self.album}'")
+        else:
+            print(f" '{track}' нет в альбоме '{self.album}'")
+
+    def load_player(self):
+        '''
+        Метод загрузки плеера
+        :return:
+        '''
+        print(f"\nМеню действий: 1 - Инфо об альбоме | 2 - Добавить трек | 3 - Удалить трек"
+              f"\n| 4 - Воспроизвести трек | 5 - Выход")
+
+class Program:
+    @staticmethod
+    def main():
+        example = MusicAlbum(artist="Queen", album="Innuendo",
+                                     genre="rock", tracklist=['The Show Must Go On', 'Bijou'])
+        while True:
+            MusicAlbum.load_player(self=None)
+            try:
+                user_select = int(input("Укажите пункт меню: "))
+            except ValueError:
+                print("Введите число")
+            if 5 <= user_select <= 1:
+                print("Введите число от 1 до 5")
+            match user_select:
+                case 1:
+                    example.album_info()
+                case 2:
+                    example.add_track(track = input("Добавить трек >>"))
+                case 3:
+                    example.delete_track(track = input("Удалить трек >>"))
+                case 4:
+                    example.play_track(track = input("Воспроизвести трек >>"))
+                case 5:
+                    break
+
+Program.main()
