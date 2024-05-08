@@ -1,5 +1,3 @@
-import datetime
-
 #____1_____###############################################################################
 class Patient:
     def __init__(self, fio: str, age: int, current_disease: str):
@@ -37,6 +35,86 @@ class TouristSpot:
 
 #____3_____###############################################################################
 
+class ModelWindow:
+    def __init__(self, header: str, left_up_corner: int, horizontal_size: int, vertical_size: int, window_color: str,
+                 visible_invisible: str, with_without_frame: str):
+        '''
+        construct
+        :param header:
+        :param left_up_corner:
+        :param horizontal_size:
+        :param vertical_size:
+        :param window_color:
+        :param visible_invisible:
+        :param with_without_frame:
+        '''
+
+        self.header = header
+        self.left_up_corner = left_up_corner
+        self.horizontal_size = horizontal_size
+        self.vertical_size = vertical_size
+        self.window_color = window_color
+        self.visible_invisible = visible_invisible
+        self.with_without_frame = with_without_frame
+
+    def moving_horizontally(self):
+        '''
+        Метод передвижения окна по горизонтали
+        :return:
+        '''
+
+
+
+    def moving_vertically(self):
+        '''
+        Метод передвижения окна по вертикали
+        :return:
+        '''
+
+
+
+    def changing_height(self):
+        '''
+        Метод изменения высоты
+        :return:
+        '''
+
+
+
+    def changing_width(self):
+        '''
+        Метод изменения ширины
+        :return:
+        '''
+
+
+
+    def changing_color(self):
+        '''
+        Метод изменения цвета
+        :return:
+        '''
+
+
+    def changing_state(self):
+        '''
+        Метод изменения состояния
+        :return:
+        '''
+
+
+
+    def polling_state(self):
+        '''
+        Метод опроса состояния
+        :return:
+        '''
+
+
+
+
+
+
 
 class Program:
 
@@ -49,13 +127,15 @@ class Program:
         print(f"\nМеню действий:\n"
               f"Пациенты: 1 - Записаться на прием | \n"
               f"Туристы: 2 - Посетить место |\n"
-              f"Модели: 3 - Удалить трек"
+              f"Окно: 3 - Удалить трек"
               f"\n| 4 - Воспроизвести трек | 5 - Выход")
 
     @staticmethod
     def main():
+
         example_patient = Patient(fio="Иванов Петр Сидорович", age="59", current_disease="Диабет")
         example_tourist = TouristSpot(name_place="Колизей", country="Италии", type_of_attraction="историческую")
+
         while True:
 
             Program.load_menu()
