@@ -18,8 +18,24 @@ class Patient:
               f"{self.current_disease} записан на прием {date} в {time}")
 
 
-#____1_____###############################################################################
+#____2_____###############################################################################
+class TouristSpot:
+    def __init__(self, name_place: str, country: int, type_of_attraction: str):
+        '''
+        construct
+        :param name_place:
+        :param country:
+        :param type_of_attraction:
+        '''
+        self.name_place = name_place
+        self.country = country
+        self.type_of_attraction = type_of_attraction
 
+    def visit_place(self, name_tourist: str):
+        print(f"{name_tourist} посетил {self.type_of_attraction} достопримечательность '{self.name_place}' в {self.country}")
+
+
+#____3_____###############################################################################
 
 
 class Program:
@@ -30,13 +46,16 @@ class Program:
         Метод загрузки меню
         :return:
         '''
-        print(f"\nМеню действий:\n Пациенты: 1 - Записаться на прием | \n"
-              f" 2 - Добавить трек | 3 - Удалить трек"
+        print(f"\nМеню действий:\n"
+              f"Пациенты: 1 - Записаться на прием | \n"
+              f"Туристы: 2 - Посетить место |\n"
+              f"Модели: 3 - Удалить трек"
               f"\n| 4 - Воспроизвести трек | 5 - Выход")
 
     @staticmethod
     def main():
         example_patient = Patient(fio="Иванов Петр Сидорович", age="59", current_disease="Диабет")
+        example_tourist = TouristSpot(name_place="Колизей", country="Италии", type_of_attraction="историческую")
         while True:
 
             Program.load_menu()
@@ -51,7 +70,9 @@ class Program:
 
                     example_patient.make_an_appointment(date, time)
                 case 2:
-                    example.add_track(track = input("Добавить трек >>"))
+                    name_tourist = input("Ваше имя? >> ")
+
+                    example_tourist.visit_place(name_tourist)
                 case 3:
                     example.delete_track(track = input("Удалить трек >>"))
                 case 4:
