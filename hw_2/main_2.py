@@ -36,6 +36,9 @@ class TouristSpot:
 #____3_____###############################################################################
 
 class ModelWindow:
+    SCREEN_HEIGHT = 1080
+    SCREEN_WIDTH = 1960
+
     def __init__(self, header: str, left_up_corner: int, horizontal_size: int, vertical_size: int, window_color: str,
                  visible_invisible: str, with_without_frame: str):
         '''
@@ -57,18 +60,15 @@ class ModelWindow:
         self.visible_invisible = visible_invisible
         self.with_without_frame = with_without_frame
 
-    @staticmethod
-    def take_border(self, screen_height: int, screen_width: int):
-        self.screen_height = 1960
-        self.screen_width = 1080
-
-    def moving_horizontally(self, ):
+    def take_left_up_corner(self, x: int, y: int):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        
+    def moving_horizontally(self):
         '''
         Метод передвижения окна по горизонтали
         :return:
         '''
-
-
 
     def moving_vertically(self):
         '''
@@ -77,22 +77,27 @@ class ModelWindow:
         '''
 
 
-
-    def changing_height(self):
+    def changing_height(self, height):
         '''
         Метод изменения высоты
         :return:
         '''
+        if height + self.coordinate_y < ModelWindow.SCREEN_HEIGHT:
+            self.vertical_size = height
+            print(f"Высота окна теперь: {self.vertical_size}\n")
+        else:
+            print("Размер окна больше экрана. Укажите размер меньше")
 
-
-
-    def changing_width(self):
+    def changing_width(self, width):
         '''
         Метод изменения ширины
         :return:
         '''
-
-
+        if width + self.coordinate_x < ModelWindow.SCREEN_WIDTH:
+            self.horizontal_size = width
+            print(f"Ширина  окна теперь: {self.horizontal_size}\n")
+        else:
+            print("Размер окна больше экрана. Укажите размер меньше")
 
     def changing_color(self, color):
         '''
@@ -140,6 +145,7 @@ class ModelWindow:
         while True:
 
             print(f"\nМеню действий:\n"
+                  f"0 - Указать координаты левого верхнего угла окна | \n"
                   f"1 - Передвинуть по горизонтали | \n"
                   f"2 - Передвинуть по вертикали |\n"
                   f"3 - Изменить высоту окна |\n"
@@ -153,16 +159,22 @@ class ModelWindow:
             if 8 <= menu_select <= 1:
                 print("Введите число от 1 до 8")
             match menu_select:
+                case 0:
+                    x = int(input("Укажите x: "))
+                    y = int(input("Укажите y: "))
+                    example_windows.take_left_up_corner(x, y)
                 case 1:
                     pass
                 case 2:
                     pass
 
                 case 3:
-                    pass
+                    height = int(input("Укажите высоту: "))
+                    example_windows.changing_height(height)
 
                 case 4:
-                    pass
+                    width = int(input("Укажите ширину: "))
+                    example_windows.changing_width(width)
 
                 case 5:
                     color = int(input("Укажите цвет: "))
