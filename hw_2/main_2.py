@@ -57,7 +57,12 @@ class ModelWindow:
         self.visible_invisible = visible_invisible
         self.with_without_frame = with_without_frame
 
-    def moving_horizontally(self):
+    @staticmethod
+    def take_border(self, screen_height: int, screen_width: int):
+        self.screen_height = 1960
+        self.screen_width = 1080
+
+    def moving_horizontally(self, ):
         '''
         Метод передвижения окна по горизонтали
         :return:
@@ -89,19 +94,36 @@ class ModelWindow:
 
 
 
-    def changing_color(self):
+    def changing_color(self, color):
         '''
         Метод изменения цвета
         :return:
         '''
+        self.window_color = color
+        print(f"Цвет окна: {self.window_color}\n")
 
-
-    def changing_state(self):
+    def changing_state(self, state):
         '''
         Метод изменения состояния
         :return:
         '''
+        if state == 13 or state == 31:
+            self.visible_invisible = "Видимое"
+            self.with_without_frame = "С рамкой"
+        elif state == 14 or state == 41:
+            self.visible_invisible = "Видимое"
+            self.with_without_frame = "Без рамки"
+        elif state == 23 or state == 32:
+            self.visible_invisible = "Не видимое"
+            self.with_without_frame = "С рамкой"
+        elif state == 24 or state == 42:
+            self.visible_invisible = "Не видимое"
+            self.with_without_frame = "Без рамки"
+        else:
+            print("Такое состояние невозможно\n")
 
+        print(f"Состояние видимости: {self.visible_invisible}\n"
+              f"Состояние рамки: {self.with_without_frame}\n")
 
 
     def polling_state(self):
@@ -110,7 +132,54 @@ class ModelWindow:
         :return:
         '''
 
+    @staticmethod
+    def operation_to_windows():
+        example_windows = ModelWindow(header="Title", left_up_corner=10, horizontal_size=100, vertical_size=200,
+                                      window_color="red", visible_invisible="visible", with_without_frame="with frame")
 
+        while True:
+
+            print(f"\nМеню действий:\n"
+                  f"1 - Передвинуть по горизонтали | \n"
+                  f"2 - Передвинуть по вертикали |\n"
+                  f"3 - Изменить высоту окна |\n"
+                  f"4 - Изменить ширину окна |\n"
+                  f"5 - Изменить цвет |\n"
+                  f"6 - Видимость/Невидимость и С рамкой/Без рамки|\n"
+                  f"7 - Выход")
+
+            menu_select = int(input("Укажите пункт меню: "))
+
+            if 8 <= menu_select <= 1:
+                print("Введите число от 1 до 8")
+            match menu_select:
+                case 1:
+                    pass
+                case 2:
+                    pass
+
+                case 3:
+                    pass
+
+                case 4:
+                    pass
+
+                case 5:
+                    color = int(input("Укажите цвет: "))
+                    example_windows.changing_color(color)
+
+                case 6:
+                    state =int(input("Настройки рамки и видимости:\n"
+                                        "1 - Видимое окно\n"
+                                        "2 - Не видимое окно\n"
+                                        "3 - С рамкой\n"
+                                        "4 - Без рамки\n"
+                                        "Например: 24 (это будет Не видимое окно без рамки)\n"
+                                     "Укажите значение: "))
+                    example_windows.changing_state(state)
+
+                case 7:
+                    break
 
 
 
@@ -124,17 +193,20 @@ class Program:
         Метод загрузки меню
         :return:
         '''
-        print(f"\nМеню действий:\n"
+        print(f"\nПрограммы:\n"
               f"Пациенты: 1 - Записаться на прием | \n"
               f"Туристы: 2 - Посетить место |\n"
-              f"Окно: 3 - Удалить трек"
-              f"\n| 4 - Воспроизвести трек | 5 - Выход")
+              f"Окна: 3 - Операции над окнами |\n"
+              f"\n| 4 - Воспроизвести трек |\n"
+              f" | 5 - Выход")
 
     @staticmethod
     def main():
 
         example_patient = Patient(fio="Иванов Петр Сидорович", age="59", current_disease="Диабет")
         example_tourist = TouristSpot(name_place="Колизей", country="Италии", type_of_attraction="историческую")
+        example_windows = ModelWindow(header="Title", left_up_corner=10, horizontal_size=100, vertical_size=200,
+                                      window_color="red", visible_invisible="visible", with_without_frame="with frame")
 
         while True:
 
@@ -154,9 +226,9 @@ class Program:
 
                     example_tourist.visit_place(name_tourist)
                 case 3:
-                    example.delete_track(track = input("Удалить трек >>"))
+                    example_windows.operation_to_windows()
                 case 4:
-                    example.play_track(track = input("Воспроизвести трек >>"))
+                    pass
                 case 5:
                     break
 
