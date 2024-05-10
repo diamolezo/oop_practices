@@ -39,12 +39,13 @@ class ModelWindow:
     SCREEN_HEIGHT = 1080
     SCREEN_WIDTH = 1960
 
-    def __init__(self, header: str, left_up_corner: int, horizontal_size: int, vertical_size: int, window_color: str,
+    def __init__(self, header: str, left_up_corner_x: int, left_up_corner_y: int, horizontal_size: int, vertical_size: int, window_color: str,
                  visible_invisible: str, with_without_frame: str):
         '''
         construct
         :param header:
-        :param left_up_corner:
+        :param left_up_corner_x:
+        :param left_up_corner_y:
         :param horizontal_size:
         :param vertical_size:
         :param window_color:
@@ -53,7 +54,8 @@ class ModelWindow:
         '''
 
         self.header = header
-        self.left_up_corner = left_up_corner
+        self.left_up_corner_x = left_up_corner_x
+        self.left_up_corner_y = left_up_corner_y
         self.horizontal_size = horizontal_size
         self.vertical_size = vertical_size
         self.window_color = window_color
@@ -61,28 +63,37 @@ class ModelWindow:
         self.with_without_frame = with_without_frame
 
     def take_left_up_corner(self, x: int, y: int):
-        self.coordinate_x = x
-        self.coordinate_y = y
+        self.left_up_corner_x = x
+        self.left_up_corner_y = y
         
-    def moving_horizontally(self):
+    def moving_horizontally(self, x: int):
         '''
         Метод передвижения окна по горизонтали
         :return:
         '''
+        if self.horizontal_size + x < ModelWindow.SCREEN_WIDTH:
+            self.left_up_corner_x = x
+            print(f"Окно перемещено по горизонтали на {self.left_up_corner_x} пикселей\n")
+        else:
+            print("Окно выходит за границы экрана. Укажите размер меньше")
 
-    def moving_vertically(self):
+    def moving_vertically(self, y: int):
         '''
         Метод передвижения окна по вертикали
         :return:
         '''
-
+        if self.vertical_size + y < ModelWindow.SCREEN_HEIGHT:
+            self.left_up_corner_y = y
+            print(f"Окно перемещено по вертикали на {self.left_up_corner_y} пикселей\n")
+        else:
+            print("Окно выходит за границы экрана. Укажите размер меньше")
 
     def changing_height(self, height):
         '''
         Метод изменения высоты
         :return:
         '''
-        if height + self.coordinate_y < ModelWindow.SCREEN_HEIGHT:
+        if height + self.left_up_corner_y < ModelWindow.SCREEN_HEIGHT:
             self.vertical_size = height
             print(f"Высота окна теперь: {self.vertical_size}\n")
         else:
@@ -93,7 +104,7 @@ class ModelWindow:
         Метод изменения ширины
         :return:
         '''
-        if width + self.coordinate_x < ModelWindow.SCREEN_WIDTH:
+        if width + self.left_up_corner_x < ModelWindow.SCREEN_WIDTH:
             self.horizontal_size = width
             print(f"Ширина  окна теперь: {self.horizontal_size}\n")
         else:
@@ -130,17 +141,23 @@ class ModelWindow:
         print(f"Состояние видимости: {self.visible_invisible}\n"
               f"Состояние рамки: {self.with_without_frame}\n")
 
-
     def polling_state(self):
         '''
         Метод опроса состояния
         :return:
         '''
+        print(f"Координаты левого верхнего угла: {self.left_up_corner_x}x{self.left_up_corner_y}\n"
+              f"Размер по горизонтали: {self.horizontal_size} пикселей\n"
+              f"Размер по вертикали: {self.vertical_size} пикселей\n"
+              f"Цвет окна: {self.window_color}\n"
+              f"Окно {self.visible_invisible}\n"
+              f"Окно {self.with_without_frame}\n")
 
     @staticmethod
     def operation_to_windows():
-        example_windows = ModelWindow(header="Title", left_up_corner=10, horizontal_size=100, vertical_size=200,
-                                      window_color="red", visible_invisible="visible", with_without_frame="with frame")
+
+        example_windows = ModelWindow(header="Title", left_up_corner_x=10, left_up_corner_y=10, horizontal_size=100,
+                                      vertical_size=200, window_color="red", visible_invisible="visible", with_without_frame="with frame")
 
         while True:
 
@@ -152,7 +169,8 @@ class ModelWindow:
                   f"4 - Изменить ширину окна |\n"
                   f"5 - Изменить цвет |\n"
                   f"6 - Видимость/Невидимость и С рамкой/Без рамки|\n"
-                  f"7 - Выход")
+                  f"7 - Показать характеристики окна |\n"
+                  f"8 - Выход")
 
             menu_select = int(input("Укажите пункт меню: "))
 
@@ -160,13 +178,16 @@ class ModelWindow:
                 print("Введите число от 1 до 8")
             match menu_select:
                 case 0:
-                    x = int(input("Укажите x: "))
-                    y = int(input("Укажите y: "))
+                    x = int(input("Укажите X: "))
+                    y = int(input("Укажите Y: "))
                     example_windows.take_left_up_corner(x, y)
                 case 1:
-                    pass
+                    x = int(input("Укажите новую X: "))
+                    example_windows.moving_horizontally(x)
+
                 case 2:
-                    pass
+                    y = int(input("Укажите новую Y: "))
+                    example_windows.moving_vertically(y)
 
                 case 3:
                     height = int(input("Укажите высоту: "))
@@ -191,10 +212,10 @@ class ModelWindow:
                     example_windows.changing_state(state)
 
                 case 7:
+                    example_windows.polling_state()
+
+                case 8:
                     break
-
-
-
 
 
 class Program:
@@ -217,8 +238,6 @@ class Program:
 
         example_patient = Patient(fio="Иванов Петр Сидорович", age="59", current_disease="Диабет")
         example_tourist = TouristSpot(name_place="Колизей", country="Италии", type_of_attraction="историческую")
-        example_windows = ModelWindow(header="Title", left_up_corner=10, horizontal_size=100, vertical_size=200,
-                                      window_color="red", visible_invisible="visible", with_without_frame="with frame")
 
         while True:
 
@@ -238,7 +257,7 @@ class Program:
 
                     example_tourist.visit_place(name_tourist)
                 case 3:
-                    example_windows.operation_to_windows()
+                    ModelWindow.operation_to_windows()
                 case 4:
                     pass
                 case 5:
