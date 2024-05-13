@@ -141,12 +141,12 @@ class ModelWindow:
         print(f"Состояние видимости: {self.visible_invisible}\n"
               f"Состояние рамки: {self.with_without_frame}\n")
 
-    def polling_state(self):
+    def __str__(self):
         '''
         Метод опроса состояния
         :return:
         '''
-        print(f"Координаты левого верхнего угла: {self.left_up_corner_x}x{self.left_up_corner_y}\n"
+        return (f"Координаты левого верхнего угла: {self.left_up_corner_x}x{self.left_up_corner_y}\n"
               f"Размер по горизонтали: {self.horizontal_size} пикселей\n"
               f"Размер по вертикали: {self.vertical_size} пикселей\n"
               f"Цвет окна: {self.window_color}\n"
@@ -169,8 +169,7 @@ class ModelWindow:
                   f"4 - Изменить ширину окна |\n"
                   f"5 - Изменить цвет |\n"
                   f"6 - Видимость/Невидимость и С рамкой/Без рамки|\n"
-                  f"7 - Показать характеристики окна |\n"
-                  f"8 - Выход")
+                  f"7 - Выход")
 
             menu_select = int(input("Укажите пункт меню: "))
 
@@ -198,7 +197,7 @@ class ModelWindow:
                     example_windows.changing_width(width)
 
                 case 5:
-                    color = int(input("Укажите цвет: "))
+                    color = input("Укажите цвет: ")
                     example_windows.changing_color(color)
 
                 case 6:
@@ -212,9 +211,253 @@ class ModelWindow:
                     example_windows.changing_state(state)
 
                 case 7:
-                    example_windows.polling_state()
+                    break
 
-                case 8:
+#____4_____###############################################################################
+
+class ArrayUtils:
+    @staticmethod
+    def calculating_the_sum(array):
+        sum = 0
+        for i in range(0, len(array), 1):
+            sum += array[i]
+
+        return sum
+
+    @staticmethod
+    def calculating_the_multi(array):
+        multi = 1
+        for i in range(0, len(array), 1):
+            multi *= array[i]
+
+        return multi
+
+    @staticmethod
+    def inverting_an_array(array):
+        inverting_array = []
+        for i in range(len(array) -1, -1, -1):
+            inverting_array.append(array[i])
+
+        return inverting_array
+    @staticmethod
+    def maximum_element(array):
+        max = array[0]
+        for i in range(0, len(array), 1):
+            if max < array[i]:
+                max = array[i]
+
+        return max
+    @staticmethod
+    def minimum_element(array):
+        min = array[0]
+        for i in range(0, len(array), 1):
+            if min > array[i]:
+                min = array[i]
+
+        return min
+
+    @staticmethod
+    def output_result():
+        example_array = [12, 34, 56, 78, 90]
+        sum = ArrayUtils.calculating_the_sum(example_array)
+        multi = ArrayUtils.calculating_the_multi(example_array)
+        inverse = ArrayUtils.inverting_an_array(example_array)
+        max = ArrayUtils.maximum_element(example_array)
+        min = ArrayUtils.minimum_element(example_array)
+
+        print(f"Сумма = {sum}\n"
+              f"Произведение = {multi}\n"
+              f"Инверсия = {inverse}\n"
+              f"Максимум = {max}\n"
+              f"Минимум = {min}\n")
+
+#____5_____###############################################################################
+# class Vector:
+#     def __init__(self, x: float, y: float, z: float):
+#         '''
+#         construct
+#         :param x:
+#         :param y:
+#         :param z:
+#         '''
+#         self.x = x
+#         self.y = y
+#         self.z = z
+#
+#     def __add__(self, other):
+#         '''
+#         Метод переопределения +
+#         :param other:
+#         :return:
+#         '''
+#         vector3_x = self.x + other.x
+#         vector3_y = self.y + other.y
+#         vector3_z = self.z + other.z
+#
+#         return Vector(vector3_x, vector3_y, vector3_z)
+#
+#     def __sub__(self, other):
+#         '''
+#         Метод переопределения -
+#         :param other:
+#         :return:
+#         '''
+#         vector3_x = self.x - other.x
+#         vector3_y = self.y - other.y
+#         vector3_z = self.z - other.z
+#
+#         return Vector(vector3_x, vector3_y, vector3_z)
+#
+#     def __mul__(self, other):
+#         '''
+#         Метод переопределения *
+#         :param other:
+#         :return:
+#         '''
+#         vector3_x = self.x * other.x
+#         vector3_y = self.y * other.y
+#         vector3_z = self.z * other.z
+#
+#         return Vector(vector3_x, vector3_y, vector3_z)
+#
+#     def len_vector(self):
+#         '''
+#         Метод вычисления длины вектора
+#         :return:
+#         '''
+#         len_vector = (self.x ** 2 + self.y ** 2 + self.z ** 2) ** 0.5
+#
+#         return len_vector
+#
+#     @staticmethod
+#     def operation_to_vector():
+#
+#         example_v1 = Vector(x=2, y=4, z=6)
+#         example_v2 = Vector(x=1, y=1, z=1)
+#
+#         while True:
+#
+#             print(f"\nМеню действий:\n"
+#                   f"0 -  | \n"
+#                   f"1 - Сложить | \n"
+#                   f"2 - Вычесть |\n"
+#                   f"3 - Перемножить |\n"
+#                   f"4 - Векторное произведение |\n"
+#                   f"5 - Скалярное произведение |\n"
+#                   f"6 - Длина вектора |\n"
+#                   f"7 - Выход")
+#
+#             menu_select = int(input("Укажите пункт меню: "))
+#
+#             if 8 <= menu_select <= 1:
+#                 print("Введите число от 1 до 8")
+#             match menu_select:
+#                 case 0:
+#                     pass
+#                 case 1:
+#                     example_v3.__add__() = example_v1 + example_v2
+#                     print(example_v3)
+#
+#                 case 2:
+#                     example_v3 = example_v1 - example_v2
+#                     print(example_v3)
+#
+#                 case 3:
+#                     example_v3 = example_v1 * example_v2
+#                     print(example_v3)
+#
+#                 case 4:
+#                     pass
+#
+#                 case 5:
+#                     pass
+#
+#                 case 6:
+#                     pass
+#
+#                 case 7:
+#                     break
+
+#____6_____###############################################################################
+
+class GeometryUtils:
+    @staticmethod
+    def area_of_circle(radius):
+        '''
+        Статический метод для расчёта площади круга
+        :return: площадь круга
+        '''
+        area = 3.14 * (radius ** 2)
+
+        print(f"Площадь круга = {area}")
+
+    @staticmethod
+    def perimetr_of_circle(radius):
+        '''
+        Статический метод для расчёта периметра круга
+        :return: площадь круга
+        '''
+        perimetr = 2 * 3.14 * radius
+
+        print(f"Периметр круга = {perimetr}")
+
+    @staticmethod
+    def area_of_rectangle(length, width):
+        '''
+        Статический метод для расчёта площади прямоугольника
+        :return:
+        '''
+        area = length * width
+
+        print(f"Площадь прямоугольника = {area}")
+
+    @staticmethod
+    def perimetr_of_rectangle(length, width):
+        '''
+        Статический метод для расчёта периметра прямоугольника
+        :return:
+        '''
+        perimetr = 2 * (length + width)
+
+        print(f"Периметр прямоугольника = {perimetr}")
+
+    @staticmethod
+    def operation_to_geometry():
+
+        print(f"\nМеню действий:\n"
+              f"0 - Площадь круга | \n"
+              f"1 - Периметр круга | \n"
+              f"2 - Площадь прямоугольника |\n"
+              f"3 - Периметр прямоугольника |\n"
+              f"4 - Выход")
+
+
+        while True:
+
+            menu_select = int(input("Укажите пункт меню: "))
+
+            if 4 <= menu_select <= 1:
+                print("Введите число от 1 до 4")
+            match menu_select:
+                case 0:
+                    radius = int(input("Укажите радиус круга: "))
+                    GeometryUtils.area_of_circle(radius)
+
+                case 1:
+                    radius = int(input("Укажите радиус круга: "))
+                    GeometryUtils.perimetr_of_circle(radius)
+
+                case 2:
+                    lenght = int(input("Укажите длину: "))
+                    width = int(input("Укажите ширину: "))
+                    GeometryUtils.area_of_rectangle(width, lenght)
+
+                case 3:
+                    lenght = int(input("Укажите длину: "))
+                    width = int(input("Укажите ширину: "))
+                    GeometryUtils.perimetr_of_rectangle(width, lenght)
+
+                case 4:
                     break
 
 
@@ -230,8 +473,10 @@ class Program:
               f"Пациенты: 1 - Записаться на прием | \n"
               f"Туристы: 2 - Посетить место |\n"
               f"Окна: 3 - Операции над окнами |\n"
-              f"\n| 4 - Воспроизвести трек |\n"
-              f" | 5 - Выход")
+              f"Массивы: 4 - Операции над массивами |\n"
+              f"Вектора: 5 - Операции над векторами |\n"
+              f"Геометрия: 6 - Операции над фигурами |\n"
+              f" | 7 - Выход")
 
     @staticmethod
     def main():
@@ -250,17 +495,26 @@ class Program:
                 case 1:
                     date = input("Введите дату в формате ДД-ММ-ГГГГ ")
                     time = input("Введите время в формате ЧЧ-ММ ")
-
                     example_patient.make_an_appointment(date, time)
+
                 case 2:
                     name_tourist = input("Ваше имя? >> ")
-
                     example_tourist.visit_place(name_tourist)
+
                 case 3:
                     ModelWindow.operation_to_windows()
+
                 case 4:
-                    pass
+                    ArrayUtils.output_result()
+
                 case 5:
+                    pass
+                   # Vector.operation_to_vector()
+
+                case 6:
+                    GeometryUtils.operation_to_geometry()
+
+                case 7:
                     break
 
 Program.main()
