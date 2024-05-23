@@ -347,6 +347,4 @@ class Program:
 
         print(example_athlete)
 
-
-
 Program.main()
