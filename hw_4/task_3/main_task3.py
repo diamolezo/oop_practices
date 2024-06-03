@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 class Car:
-    def __init__(self, brand:str, model:str, year:int, price:float, is_stock:str):
+    def __init__(self, brand: str, model: str, year:int, price: float, is_stock: str):
         self.__brand = brand
         self.__model = model
         self.__year = year
@@ -49,12 +49,66 @@ class Salesperson:
     def set_sold_auto(self, sold_auto): self.__sold_auto = sold_auto
 
     def add_sold_car(self, sold_auto: Car):
-        self.__sold_auto.append(sold_auto)
+        if not sold_auto in self.__sold_auto:
+            self.__sold_auto.append(sold_auto)
+
+    def remove_sold_car(self, sold_auto: Car):
+        if sold_auto in self.__sold_auto:
+            self.__sold_auto.remove(sold_auto)
 
     def __str__(self):
         return (f'Имя: {self.__name}\n'
                 f'Опыт: {self.__experience}\n'
                 f'Проданные авто: {self.get_sold_auto()}\n')
 
+class Customer:
+    def __init__(self, name: str, phone: int, email: str, purchase_auto: list[Car] = None):
+        self.__name = name
+        self.__phone = phone
+        self.__email = email
+        if self.__purchase_auto is None:
+            self.__purchase_auto = []
+        else:
+            self.__purchase_auto = purchase_auto
+
+    def get_name(self): return self.__name
+    def set_name(self, name): self.__name = name
+
+    def get_phone(self): return self.__phone
+    def set_phone(self, phone): self.__phone = phone
+
+    def get_phone(self): return self.__email
+    def set_phone(self, phone): self.__email = email
+
+    def get_purchase_auto(self): return ('\n '.join(str(i) for i in self.__purchase_auto))
+    def set_purchase_auto(self, purchase_auto): self.__purchase_auto = purchase_auto
+
+    def add_purchase_auto(self, purchase_auto: Car):
+        if not purchase_auto in self.__purchase_auto:
+            self.__purchase_auto.append(purchase_auto)
+
+    def remove_purchase_auto(self, purchase_auto: Car):
+        if purchase_auto in self.__purchase_auto:
+            self.__purchase_auto.remove(purchase_auto)
+
+    def __str__(self):
+        return (f'Имя: {self.__name}\n'
+                f'Телефон: {self.__phone}\n'
+                f'Email: {self.__email}\n'
+                f'Проданные авто: {self.get_purchase_auto()}\n')
+
+
 class Dealership:
-    def __init__(self):
+    def __init__(self, list_cars: list[Car] = None, list_customer: list[Customer] = None,
+                 list_salesperson: list[Salesperson] = None):
+
+        if (self.__list_cars or self.__list_customer  or self.__list_salesperson) is None:
+            self.__list_cars = []
+            self.__list_customer = []
+            self.__list_salesperson = []
+        else:
+            self.__list_cars = list_cars
+            self.__list_customer = list_customer
+            self.__list_salesperson = list_salesperson
+
+
